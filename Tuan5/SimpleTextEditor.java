@@ -1,37 +1,32 @@
 package Tuan5;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class SimpleTextEditor {
-    static class CharStack {
-        char[] stack = new char[100000 + 5];
-        char[][] previousStack = new char[1000][100000 + 5];
-        int[] previousSize = new int[1000];
-        int step = 0;
-        int top = -1;
-
+    public static class CharStack {
+        Stack<Character> stack = new Stack<>();
+        Stack<Stack<Character>> previousStacks = new Stack<>();
+        
         public void add(char c) {
-            stack[++top] = c;
+            stack.push(c);
         }
-
+    
         public boolean isEmpty() {
-            return top < 0;
+            return stack.isEmpty();
         }
-
+    
         public char poll() {
-            if (top >= 0) {
-                return stack[top--];
-            }
-            return 'a';
+            return stack.pop();
         }
-
+    
         public void add(String s) {
             saveState();
             for (int i = 0; i < s.length(); i++) {
                 add(s.charAt(i));
             }
         }
-
+    
         public void delete(int k) {
             saveState();
             for (int i = 0; i < k; i++) {
@@ -40,27 +35,40 @@ public class SimpleTextEditor {
                 }
             }
         }
-
+    
         public void print(int k) {
-            if (k - 1 <= top) {
-                System.out.println(stack[k - 1]);
-            } 
-        }
-
-        public void undo() {
-            if (step > 0) {
-                step--;
-                System.arraycopy(previousStack[step], 0, stack, 0, stack.length);
-                top = previousSize[step];
+            if (k <= stack.size()) {
+                Stack<Character> temp = new Stack<>();
+                int count = stack.size() - k;
+                
+                while (count > 0) {
+                    temp.push(stack.pop());
+                    count--;
+                }
+    
+                char result = stack.peek();
+                
+                while (!temp.isEmpty()) {
+                    stack.push(temp.pop());
+                }
+                
+                System.out.println(result);
             }
         }
-        
+    
+        public void undo() {
+            if (!previousStacks.isEmpty()) {
+                stack = previousStacks.pop();
+            }
+        }
+    
         public void saveState() {
-            System.arraycopy(stack, 0, previousStack[step], 0, stack.length);
-            previousSize[step] = top;
-            step++;
+            Stack<Character> newState = new Stack<>();
+            newState.addAll(stack);
+            previousStacks.push(newState);
         }
     }
+    
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
