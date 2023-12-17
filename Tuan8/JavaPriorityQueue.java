@@ -26,7 +26,8 @@ class Student {
     }
 }
 
-static List<Student> getStudents(List<String> events) {
+class EventHandler {
+    List<Student> getStudents(List<String> events) {
     PriorityQueue<Student> priorityQueue = new PriorityQueue<Student>(
             Comparator.comparing(Student::getCGPA).reversed()
                     .thenComparing(Student::getName)
@@ -47,11 +48,12 @@ static List<Student> getStudents(List<String> events) {
     }
     return remainingStudents;
 }
-
+}
 
 public class JavaPriorityQueue {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        EventHandler eventHandler = new EventHandler();
         int n = Integer.parseInt(input.nextLine());
         List<String> events = new ArrayList<>();
 
@@ -60,7 +62,7 @@ public class JavaPriorityQueue {
             events.add(line);
         }
 
-        List<Student> students = getStudents(events);
+        List<Student> students = eventHandler.getStudents(events);
         input.close();
 
         if (students.isEmpty()) {
