@@ -5,18 +5,6 @@ import java.util.Queue;
 import java.util.Scanner;
 
 public class LevelOrderTraversal {  
-    static class Node {
-        Node left;
-        Node right;
-        int data;
-
-        public Node(int data) {
-            this.data = data;
-            left = null;
-            right = null;
-        }
-    }
-
     static void insert(Node node, int value) {
         if (value < node.data) {
             if (node.left != null) {
@@ -52,7 +40,7 @@ public class LevelOrderTraversal {
         }
     }
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
         int x = input.nextInt();
@@ -63,5 +51,17 @@ public class LevelOrderTraversal {
         }
         levelOrderTraversal(head);
         input.close();
+    }
+}
+
+class Node {
+    Node left;
+    Node right;
+    int data;
+
+    public Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
     }
 }

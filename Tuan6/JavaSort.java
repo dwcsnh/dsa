@@ -38,7 +38,6 @@ class Student implements Comparable<Student> {
     }
 }
 
-// Complete the code
 public class JavaSort {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);

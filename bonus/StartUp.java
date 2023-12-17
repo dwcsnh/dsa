@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class StartUp {
-    public static class Entry implements Comparable {
+    public static class Entry implements Comparable<Entry> {
         int position;
         int value;
 
@@ -14,12 +14,8 @@ public class StartUp {
         }
 
         @Override
-        public int compareTo(Object o) {
-            if (o instanceof Entry) {
-                Entry e = (Entry) o;
-                return Integer.compare(this.value, e.value);
-            }
-            return 1234567;
+        public int compareTo(Entry e) {
+            return Integer.compare(this.value, e.value);
         }
     }
 

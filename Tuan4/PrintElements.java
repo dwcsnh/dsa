@@ -1,38 +1,79 @@
 package Tuan4;
 
-public class PrintElements {
-    class Node {
-        int data;
-        Node next;
+import java.util.*;
 
-        public Node(int data, Node next) {
-            this.data = data;
-            this.next = next;
+public class PrintElements {
+
+    static class SinglyLinkedListNode {
+        public int data;
+        public SinglyLinkedListNode next;
+
+        public SinglyLinkedListNode(int nodeData) {
+            this.data = nodeData;
+            this.next = null;
         }
     }
 
-    class NodeList {
-        Node head;
+    static class SinglyLinkedList {
+        public SinglyLinkedListNode head;
+        public SinglyLinkedListNode tail;
 
-        public void addFirst(int data) {
-            Node node = new Node(data, head);
-            head = node;
+        public SinglyLinkedList() {
+            this.head = null;
+            this.tail = null;
         }
 
-        public void append(int data) {
-            if (head == null) {
-                head = new Node(data, null);
+        public void insertNode(int nodeData) {
+            SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+
+            if (this.head == null) {
+                this.head = node;
             } else {
-                Node node = head;
-                while (node.next != null) {
-                    node = node.next;
-                }
-                node.next = new Node(data, null);
+                this.tail.next = node;
             }
+
+            this.tail = node;
+        }
+    }
+
+    // Complete the printLinkedList function below.
+
+    /*
+     * For your reference:
+     *
+     * SinglyLinkedListNode {
+     *     int data;
+     *     SinglyLinkedListNode next;
+     * }
+     *
+     */
+    static void printLinkedList(SinglyLinkedListNode head) {
+        SinglyLinkedListNode p = head;
+        while (p != null) {
+            System.out.println(p.data);
+            p = p.next;
         }
 
-        public void remove() {
-            
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        SinglyLinkedList llist = new SinglyLinkedList();
+
+        int llistCount = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < llistCount; i++) {
+            int llistItem = scanner.nextInt();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            llist.insertNode(llistItem);
         }
+
+        printLinkedList(llist.head);
+
+        scanner.close();
     }
 }
+

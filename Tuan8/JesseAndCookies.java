@@ -78,19 +78,19 @@ public class JesseAndCookies {
             minPQ.add(x);
         }
         int steps = 0;
-        while (!minPQ.check(k)) {
+        while (!minPQ.check(k) && minPQ.getSize() > 1) {
             steps++;
             int min1 = minPQ.getTop();
             minPQ.removeTop();
             int min2 = minPQ.getTop();
             minPQ.removeTop();
-            if (minPQ.isEmpty()) {
-                steps = -1;
-                break;
-            }
             minPQ.add(min1 + 2 * min2);
+        }
+        if (minPQ.getTop() < k) {
+            steps = -1;
         }
         System.out.println(steps);
         input.close();
     }
 }
+
